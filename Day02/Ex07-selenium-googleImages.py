@@ -44,10 +44,27 @@ def download_images(keyword, num_images=10, output_dir='images'):
   search_bar.send_keys(keyword) # 키워드 입력
   search_bar.send_keys(Keys.RETURN) # 엔터 입력
   
-  # time.sleep(10)
+  # 페이지 로딩 대기
+  time.sleep(2)
   
+  # 출력 디렉토리 생성
+  if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
+  
+  # 썸네일 요소 선택
+  thumbnails = driver.find_elements(By.CSS_SELECTOR, ".rg_i")
+  
+  # 썸네일 클릭 및 이미지 다운로드
+  for index, thumbnail in enumerate(thumbnails[:num_images]):
+    try:
+      thumbnail.click()
+      time.sleep(2)
+    except Exception as e:
+      print(f'Error downloadings image {index}: {e}')
+      traceback.print_exc()
+         
   # 드라이버 종료
-  # driver.quit()
+  driver.quit()
   
 # 실행코드
 keyword = 'cute cat'
