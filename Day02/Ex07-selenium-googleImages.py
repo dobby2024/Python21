@@ -59,6 +59,32 @@ def download_images(keyword, num_images=10, output_dir='images'):
     try:
       thumbnail.click()
       time.sleep(2)
+      
+      # 이미지 요소 대기 및 선택
+      image = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located(
+          (By.CSS_SELECTOR, ".r48jcc.pT0Scc.iPVvYb")
+        )
+      )
+      
+      '''
+      <img src="https://hips.hearstapps.com/hmg-prod/images/cute-cat-photos-1593441022.jpg?crop=1.00xw:0.753xh;0,0.153xh&amp;resize=1200:*" jsaction="VQAsE" class="r48jcc pT0Scc iPVvYb" style="max-width: 1200px; height: 210px; margin: 17.5px 0px; width: 417px;" alt="30 Cute Cat Photos — Best Photos of Cats" jsname="kn3ccd" aria-hidden="false">
+      '''      
+      # 이미지 URL 가져오기
+      image_url = image.get_attribute("src")
+      
+      # 이미지 URL이 데이터 형식인 경우 건너뛰기
+      if image_url.startswith("data:"):
+        continue
+      
+      # HTTP 요청 헤더에 User-Agent 값을 추가하여 이미지 다운로드
+      headers = {"User-Agent": "Mozilla/5.0"}
+      request = urllib.request.Request(image_url, headers=headers)
+      with urllib.request.urlopen(request) as response:
+        with open(f"{output_dir}/{keyword}_{index}.jpg", "wb") as out_file:
+          out_file.write(response.read())
+  
+        
     except Exception as e:
       print(f'Error downloadings image {index}: {e}')
       traceback.print_exc()
@@ -67,7 +93,7 @@ def download_images(keyword, num_images=10, output_dir='images'):
   driver.quit()
   
 # 실행코드
-keyword = 'cute cat'
+keyword = '르세라핌'
 num_images = 10
 output_dir = 'images'
 
