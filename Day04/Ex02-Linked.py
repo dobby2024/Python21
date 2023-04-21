@@ -86,3 +86,20 @@ linked_list.insert_node(9, 99) # 9 다음에 99삽입
 linked_list.delete_node(1)
 
 linked_list.print_list()
+
+
+print('============================')
+
+def changeData(node):
+  node.data = 10
+
+node1 = Node(5)
+
+changeData(node1)
+print(node1.data)
+
+
+
+
+
+
