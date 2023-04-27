@@ -14,13 +14,40 @@ B  C
  
 '''
 class Graph:
+  '''
+  self.vertices = ['A', 'B', 'C', 'D', 'E']
+  self.adj_list = {
+  'A' : [],
+  'B' : [],
+  'C' : [],
+  'D' : [],
+  'E' : []
+  }
+  '''
   def __init__(self, vertices):
     self.vertices = vertices
     self.adj_list = {}
     for vertex in vertices:
       self.adj_list[vertex] = []
   
+  '''
+  graph.add_edge('A', 'B')
+  graph.add_edge('A', 'C')
+  graph.add_edge('B', 'D')
+  graph.add_edge('C', 'E')
+  '''
   def add_edge(self, u, v):
+    '''
+    self.adj_list = {
+      'A' : [B, C],
+      'B' : [A, D],
+      'C' : [A, E],
+      'D' : [B],
+      'E' : [C]
+      }
+      
+    
+    '''
     self.adj_list[u].append(v)
     self.adj_list[v].append(u)
     
@@ -28,12 +55,27 @@ class Graph:
     self.adj_list[u].remove(v)
     self.adj_list[v].remove(u)
   
+  
+'''
+  'A' : [B, C],
+  'B' : [A, D],
+  'C' : [A, E],
+  'D' : [B],
+  'E' : [C]
+  
+'''
   def print_graph(self):
     for vertex in self.vertices:
       print(vertex, end=' -> ')
       print(' -> '.join([str(node) for node in self.adj_list[vertex]]))
 
+
+# 실행코드
 vertices = ['A', 'B', 'C', 'D', 'E']
+
+print(' -> '.join(vertices))
+
+
 graph = Graph(vertices)
 graph.add_edge('A', 'B')
 graph.add_edge('A', 'C')
