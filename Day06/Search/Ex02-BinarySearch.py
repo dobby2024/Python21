@@ -6,8 +6,6 @@
   중앙값과 비교하여 탐색 범위를 반으로 줄여가며 찾는 값을 탐색한다.
 
 '''
-
-
 def binary_search(arr, target):
     # 탐색 범위의 시작점과 끝점을 지정
     left, right = 0, len(arr) - 1
