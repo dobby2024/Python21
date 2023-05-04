@@ -13,7 +13,7 @@ conn = sqlite3.connect(db_file)
 cur = conn.cursor()
 
 cur.execute('''
-CREATE TABLE   (
+CREATE TABLE employees (
   employee_id INTEGER PRIMARY KEY,
   first_name TEXT,
   last_name TEXT,
