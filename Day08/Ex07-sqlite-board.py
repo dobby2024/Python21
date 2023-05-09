@@ -20,7 +20,7 @@ class BoardApp(tk.Tk):
         print('BoardApp.__init__')
         super().__init__()
 
-        self.title('BoardApp')
+        self.title('게시판')
 
         # 컨트롤 변수 선언
         self.combobox_search = ttk.Combobox(self)
@@ -30,7 +30,6 @@ class BoardApp(tk.Tk):
         self.button_delete = tk.Button(self, text='삭제', command=self.onclick_delete)
         self.button_update = tk.Button(self, text='수정', command=self.onclick_update)
         self.treeview_boardlist = ttk.Treeview(self, columns=('id','title', 'writer', 'date'), show="headings")
-
 
         # 컨트롤 배치
         self.combobox_search.grid(row=0, column=0,  padx=5, pady=5, sticky="nsew")
@@ -50,7 +49,6 @@ class BoardApp(tk.Tk):
         self.treeview_boardlist.column('writer', width=100)
         self.treeview_boardlist.heading('date', text='작성일')
         self.treeview_boardlist.column('date', width=150)
-
 
         # 초기화
         self.init_boardlist()
@@ -73,6 +71,7 @@ class BoardApp(tk.Tk):
         # SQL 문 실행
         sql = f"SELECT BOARD_ID, BOARD_TITLE, BOARD_WRITER, BOARD_DATE FROM PY_BOARD " \
               f"{where_clause} ORDER BY BOARD_ID DESC"
+              
         curs.execute(sql, (keyword,))
 
         rows = curs.fetchall()
